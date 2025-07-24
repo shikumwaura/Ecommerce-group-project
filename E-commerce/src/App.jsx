@@ -5,7 +5,7 @@ import Home from './pages/Home';
 import ProductPage from './pages/ProductPage';
 import CartPage from './pages/CartPage';
 import Orders from './pages/Orders';
-import './styles/App.module.css'; // Specific App component styling
+import './App.module.css'; // Specific App component styling
 
 // If you used the optional api/products.js, uncomment these:
 import { fetchInitialProducts, fetchOrdersFromJsonServer, placeOrderToJsonServer } from './api/products';

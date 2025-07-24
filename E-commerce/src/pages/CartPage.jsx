@@ -1,7 +1,7 @@
 import React from 'react';
 import Cart from '../components/Cart';
 import OrderForm from '../components/OrderForm';
-import styles from '../styles/Pages.module.css';
+import styles from '../styles/Cart.module.css';
 
 function CartPage({ cartItems, updateCartQuantity, removeCartItem, placeOrder }) {
   const calculateTotal = () => {
