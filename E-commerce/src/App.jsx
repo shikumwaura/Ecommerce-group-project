@@ -4,18 +4,21 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import ProductPage from './pages/ProductPage';
 import CartPage from './pages/CartPage';
-import About from './pages/About';
 import Orders from './pages/Orders';
-import './styles/App.module.css'; // Specific App component styling
-
-// If you used the optional api/products.js, uncomment these:
-import { fetchInitialProducts, fetchOrdersFromJsonServer, placeOrderToJsonServer } from './api/products';
-
+import About from './pages/About';
+import './styles/App.module.css';
 
 function App() {
   const [products, setProducts] = useState([]);
   const [cartItems, setCartItems] = useState([]);
   const [orders, setOrders] = useState([]);
+
+  // Determine the base URL for your JSON server backend
+  // Use http://localhost:3001 for local development
+  // Use your specific Vercel URL for production
+  const JSON_SERVER_BASE_URL = window.location.origin.includes('localhost')
+    ? 'http://localhost:3001'
+    : 'https://ecommerce-group-project.vercel.app'; // <--- DIRECTLY USE YOUR VERCEL URL HERE
 
   // Fetch initial products from DummyJSON and orders from json-server
   useEffect(() => {
@@ -23,33 +26,27 @@ function App() {
     fetch('https://dummyjson.com/products')
       .then(res => res.json())
       .then(data => {
-        // DummyJSON returns products in a 'products' array
-        // We'll map them to ensure they have an 'id' which json-server expects if adding later
         const dummyProducts = data.products.map(p => ({
-            id: p.id, // DummyJSON provides good IDs
+            id: p.id,
             title: p.title,
             description: p.description,
             price: p.price,
             category: p.category,
-            image: p.thumbnail || p.images[0], // Use thumbnail or first image
-            rating: p.rating ? { rate: p.rating, count: Math.floor(Math.random() * 1000) } : { rate: 0, count: 0 } // DummyJSON rating is just a number
+            image: p.thumbnail || p.images[0],
+            rating: p.rating ? { rate: p.rating, count: Math.floor(Math.random() * 1000) } : { rate: 0, count: 0 }
         }));
         setProducts(dummyProducts);
       })
       .catch(error => console.error("Error fetching products from DummyJSON:", error));
 
-    // --- Fetch orders from your json-server ---
-    fetch('http://localhost:3001/orders') // Adjust if you deploy json-server elsewhere
+    // --- Fetch orders from your deployed json-server backend ---
+    fetch(`${JSON_SERVER_BASE_URL}/backend/orders`) // <--- Uses the specific Vercel URL
       .then(res => res.json())
       .then(data => setOrders(data))
-      .catch(error => console.error("Error fetching orders from json-server:", error));
-  }, []); // Empty dependency array means this runs once on mount
+      .catch(error => console.error("Error fetching orders from backend:", error));
+  }, []); // Dependency array is empty as JSON_SERVER_BASE_URL is effectively constant per environment load
 
-  // REQUIRED: Add product function (for POST request to json-server)
-  // This will be called from AddProductForm.jsx
   const addProduct = (newProduct) => {
-    // We already fetch initial products from DummyJSON, but new products
-    // added by the form go to our json-server. We display them together.
     setProducts((prevProducts) => [...prevProducts, newProduct]);
   };
 
@@ -70,7 +67,7 @@ function App() {
     setCartItems((prevItems) =>
       prevItems
         .map((item) => (item.id === productId ? { ...item, quantity: quantity } : item))
-        .filter((item) => item.quantity > 0) // Remove if quantity becomes 0
+        .filter((item) => item.quantity > 0)
     );
   };
 
@@ -84,17 +81,22 @@ function App() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         ...orderDetails,
-        items: cartItems, // Include cart items in the order
+        items: cartItems,
         date: new Date().toISOString(),
         total: cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2)
       })
     };
 
-    fetch('http://localhost:3001/orders', configObj) // POST to your json-server for orders
-      .then(res => res.json())
+    fetch(`${JSON_SERVER_BASE_URL}/backend/orders`, configObj) // <--- Uses the specific Vercel URL
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return res.json();
+      })
       .then(data => {
-        setOrders((prevOrders) => [...prevOrders, data]); // REQUIRED STATE UPDATE
-        setCartItems([]); // Clear cart after successful order
+        setOrders((prevOrders) => [...prevOrders, data]);
+        setCartItems([]);
         alert('Order placed successfully!');
       })
       .catch(error => console.error("Error placing order:", error));
@@ -123,9 +125,7 @@ function App() {
             }
           />
           <Route path="/orders" element={<Orders orders={orders} />} />
-          <Route path="/about" element={<About />} /> {/* <--- ADD THIS NEW ROUTE */}
-          {/* You could also add a fallback for unmatched routes (e.g., a 404 page) */}
-          {/* <Route path="*" element={<h1>404 Not Found</h1>} /> */}
+          <Route path="/about" element={<About />} />
         </Routes>
       </div>
     </>
