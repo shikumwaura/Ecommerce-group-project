@@ -7,34 +7,48 @@ import CartPage from './pages/CartPage';
 import Orders from './pages/Orders';
 import './styles/App.module.css'; // Specific App component styling
 
+// If you used the optional api/products.js, uncomment these:
+// import { fetchInitialProducts, fetchOrdersFromJsonServer, placeOrderToJsonServer } from './api/products';
+
+
 function App() {
   const [products, setProducts] = useState([]);
   const [cartItems, setCartItems] = useState([]);
   const [orders, setOrders] = useState([]);
 
-  // Fetch initial products from json-server or DummyJSON
+  // Fetch initial products from DummyJSON and orders from json-server
   useEffect(() => {
-    // For json-server:
-    fetch('http://localhost:3001/products')
-      .then(res => res.json())
-      .then(data => setProducts(data))
-      .catch(error => console.error("Error fetching products from json-server:", error));
-
-    // For DummyJSON (uncomment and replace json-server fetch if preferred)
+    // --- Fetch initial products from DummyJSON ---
     fetch('https://dummyjson.com/products')
       .then(res => res.json())
-      .then(data => setProducts(data.products)) // DummyJSON returns products
+      .then(data => {
+        // DummyJSON returns products in a 'products' array
+        // We'll map them to ensure they have an 'id' which json-server expects if adding later
+        const dummyProducts = data.products.map(p => ({
+            id: p.id, // DummyJSON provides good IDs
+            title: p.title,
+            description: p.description,
+            price: p.price,
+            category: p.category,
+            image: p.thumbnail || p.images[0], // Use thumbnail or first image
+            rating: p.rating ? { rate: p.rating, count: Math.floor(Math.random() * 1000) } : { rate: 0, count: 0 } // DummyJSON rating is just a number
+        }));
+        setProducts(dummyProducts);
+      })
       .catch(error => console.error("Error fetching products from DummyJSON:", error));
 
-    // Fetch orders (assuming json-server handles them)
-  //   fetch('http://localhost:3001/orders')
-  //     .then(res => res.json())
-  //     .then(data => setOrders(data))
-  //     .catch(error => console.error("Error fetching orders:", error));
-  // }, []);
+    // --- Fetch orders from your json-server ---
+    fetch('http://localhost:3001/orders') // Adjust if you deploy json-server elsewhere
+      .then(res => res.json())
+      .then(data => setOrders(data))
+      .catch(error => console.error("Error fetching orders from json-server:", error));
+  }, []); // Empty dependency array means this runs once on mount
 
-  // REQUIRED: Add product function (for POST request)
+  // REQUIRED: Add product function (for POST request to json-server)
+  // This will be called from AddProductForm.jsx
   const addProduct = (newProduct) => {
+    // We already fetch initial products from DummyJSON, but new products
+    // added by the form go to our json-server. We display them together.
     setProducts((prevProducts) => [...prevProducts, newProduct]);
   };
 
@@ -64,14 +78,18 @@ function App() {
   };
 
   const placeOrder = (orderDetails) => {
-    // This will be a POST request to json-server for orders
     const configObj = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ...orderDetails, items: cartItems, date: new Date().toISOString() })
+      body: JSON.stringify({
+        ...orderDetails,
+        items: cartItems, // Include cart items in the order
+        date: new Date().toISOString(),
+        total: cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2)
+      })
     };
 
-    fetch('http://localhost:3001/orders', configObj)
+    fetch('http://localhost:3001/orders', configObj) // POST to your json-server for orders
       .then(res => res.json())
       .then(data => {
         setOrders((prevOrders) => [...prevOrders, data]); // REQUIRED STATE UPDATE
