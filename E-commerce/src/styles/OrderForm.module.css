@@ -31,3 +31,19 @@
   font-size: 1rem;
 }
 
+.cityZip {
+  display: flex;
+  gap: 20px;
+}
+
+.cityZip > div {
+  flex: 1;
+}
+
+.placeOrderBtn {
+  width: 100%;
+  padding: 15px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-top: 20px;
+}
