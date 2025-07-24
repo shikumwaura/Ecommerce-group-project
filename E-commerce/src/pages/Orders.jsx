@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from '../styles/Pages.module.css';
-import orderStyles from '../styles/Orders.module.css'; // Specific styles for Orders page
+import orderStyles from '../styles/Orders.module.css';
 
 function Orders({ orders }) {
   if (orders.length === 0) {
