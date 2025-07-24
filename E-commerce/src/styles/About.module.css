@@ -1,0 +1,17 @@
+.aboutContainer {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.aboutContainer h1 {
+  color: var(--color-primary);
+  margin-bottom: 20px;
+}
+
+.aboutContainer p {
+  line-height: 1.6;
+  margin-bottom: 15px;
+  color: #333;
+}
