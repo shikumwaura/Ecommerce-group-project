@@ -8,7 +8,7 @@ import Orders from './pages/Orders';
 import './styles/App.module.css'; // Specific App component styling
 
 // If you used the optional api/products.js, uncomment these:
-// import { fetchInitialProducts, fetchOrdersFromJsonServer, placeOrderToJsonServer } from './api/products';
+import { fetchInitialProducts, fetchOrdersFromJsonServer, placeOrderToJsonServer } from './api/products';
 
 
 function App() {
