@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
 :root {
-  --primary-purple: #6a0dad; /* A more vibrant purple */
-  --light-purple: #e0b0ff; /* Lighter purple for backgrounds */
+  --primary-purple: #6a0dad;
+  --light-purple: #e0b0ff;
   --text-dark: #333;
   --text-light: #f8f8f8;
   --button-green: #28a745;
