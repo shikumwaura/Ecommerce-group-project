@@ -31,5 +31,5 @@ function ProductPage({ products, addProduct, addToCart }) {
   <ProductList products={products} addToCart={addToCart} />
 </div>
   );
-};
+}
 export default ProductPage;
