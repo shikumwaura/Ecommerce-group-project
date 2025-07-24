@@ -39,6 +39,6 @@ function Orders({ orders }) {
       </div>
     </div>
   );
-}
+};
 
 export default Orders;
