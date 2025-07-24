@@ -27,7 +27,10 @@ server.use((req, res, next) => {
 // Use default router
 server.use(router);
 
-const port = process.env.PORT || 3001; // Use environment variable for port in production
+const port = process.env.PORT || 3001; // <--- This line is crucial
+server.listen(port, () => {
+  console.log(`JSON Server is running on port ${port}`);
+});
 
 server.listen(port, () => {
   console.log(`JSON Server is running on port ${port}`);
