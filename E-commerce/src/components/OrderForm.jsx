@@ -32,7 +32,36 @@ function OrderForm({ placeOrder }) {
     }); // Clear form
   };
 
+  return (
+    <div className={styles.orderFormContainer}>
+      <h2>Shipping Information</h2>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <label htmlFor="name">Full Name:</label>
+        <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
 
+    <label htmlFor="email">Email:</label>
+    <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required />
+
+    <label htmlFor="address">Address:</label>
+    <input type="text" id="address" name="address" value={formData.address} onChange={handleChange} required />
+
+    <div className={styles.cityZip}>
+      <div>
+        <label htmlFor="city">City:</label>
+        <input type="text" id="city" name="city" value={formData.city} onChange={handleChange} required />
+      </div>
+      <div>
+        <label htmlFor="zip">ZIP Code:</label>
+        <input type="text" id="zip" name="zip" value={formData.zip} onChange={handleChange} required />
+      </div>
+    </div>
+
+    <button type="submit" className={`${styles.placeOrderBtn} btn-primary`}>
+      Place Order
+    </button>
+  </form>
+</div>
+  );
 }
 
 export default OrderForm;
