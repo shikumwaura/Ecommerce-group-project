@@ -36,3 +36,51 @@
   color: var(--primary-purple);
 }
 
+.itemPrice {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.quantityControl {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.quantityControl button {
+  background-color: #f0f0f0;
+  color: #333;
+  border: 1px solid #ddd;
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  font-size: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.quantityControl button:hover {
+  background-color: #e0e0e0;
+}
+
+.quantityControl span {
+  font-weight: 600;
+  min-width: 20px;
+  text-align: center;
+}
+
+.removeButton {
+  background-color: #dc3545; /* Red color */
+  color: white;
+  padding: 8px 15px;
+  border-radius: var(--border-radius);
+  transition: background-color 0.3s ease;
+}
+
+.removeButton:hover {
+  background-color: #c82333;
+}
+
