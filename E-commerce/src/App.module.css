@@ -1,0 +1,4 @@
+.main-content {
+  flex-grow: 1; /* Allows content to take up available space */
+  padding-top: 60px; /* Adjust based on your Navbar height */
+}
