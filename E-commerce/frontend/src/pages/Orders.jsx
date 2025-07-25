@@ -1,11 +1,7 @@
 import React from 'react';
-<<<<<<< HEAD:E-commerce/src/pages/Orders.jsx
-// import styles from '../styles/Pages.module.css';
-// import orderStyles from '../styles/Orders.module.css'; // Specific styles for Orders page
-=======
 import styles from '../styles/Pages.module.css';
 import orderStyles from '../styles/Orders.module.css';
->>>>>>> cart:E-commerce/FRONTEND/src/pages/Orders.jsx
+
 
 function Orders({ orders }) {
   if (orders.length === 0) {
@@ -44,6 +40,6 @@ function Orders({ orders }) {
       </div>
     </div>
   );
-}
+};
 
 export default Orders;
