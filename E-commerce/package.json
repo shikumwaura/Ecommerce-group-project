@@ -8,7 +8,11 @@
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "backend": "json-server --watch ./backend/db.json --port 3001"
+    "backend": "json-server --watch ./backend/db.json --port 3001",
+  "start:backend": "json-server --watch src/backend/db.json --port 3001",
+  "start:frontend": "json-server --watch src/frontend/db.json --port 3002"
+
+
   },
   "dependencies": {
     "react": "^18.2.0",
