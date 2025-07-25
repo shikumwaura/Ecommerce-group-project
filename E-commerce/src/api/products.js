@@ -1,4 +1,3 @@
-// src/api/products.js
 
 const JSON_SERVER_BASE_URL = 'http://localhost:3001'; // Your json-server URL
 const DUMMYJSON_PRODUCTS_URL = 'https://dummyjson.com/products';
