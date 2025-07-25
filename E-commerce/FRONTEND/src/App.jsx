@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import ProductPage from './pages/ProductPage';
 import CartPage from './pages/CartPage';
+import About from './pages/About';
 import Orders from './pages/Orders';
 import './App.module.css'; // Specific App component styling
 
@@ -122,6 +123,9 @@ function App() {
             }
           />
           <Route path="/orders" element={<Orders orders={orders} />} />
+          <Route path="/about" element={<About />} /> {/* <--- ADD THIS NEW ROUTE */}
+          {/* You could also add a fallback for unmatched routes (e.g., a 404 page) */}
+          {/* <Route path="*" element={<h1>404 Not Found</h1>} /> */}
         </Routes>
       </div>
     </>
