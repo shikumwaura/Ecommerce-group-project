@@ -1,5 +1,5 @@
 import React from 'react';
-import ProductList from '../components/ProductList';
+import ProductList from './components/ProductList';
 import AddProductForm from '../components/AddProductForm';
 import styles from '../styles/Pages.module.css'; // General page styles
 

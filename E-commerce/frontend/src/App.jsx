@@ -5,7 +5,7 @@ import Home from './pages/Home';
 import ProductPage from './pages/ProductPage';
 import CartPage from './pages/CartPage';
 import About from './pages/About';
-import Orders from './pages/Orders';
+import Orders from '/pages/Orders';
 import './styles/App.module.css'; // Specific App component styling
 
 // If you used the optional api/products.js, uncomment these:
