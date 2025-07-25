@@ -15,7 +15,7 @@ function AddProductForm({ addProduct }) {
 
   // Determine the base URL for your JSON server backend
   const JSON_SERVER_BASE_URL = window.location.origin.includes('localhost')
-    ? 'http://localhost:3001'
+    ? 'json-server-vercel-7yz7us9s1-shikumwauras-projects.vercel.app'
     : 'https://ecommerce-group-project.vercel.app'; //DIRECTLY USE YOUR VERCEL URL HERE
 
   const handleChange = (e) => {

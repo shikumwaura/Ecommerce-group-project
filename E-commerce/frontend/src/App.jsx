@@ -4,10 +4,9 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import ProductPage from './pages/ProductPage';
 import CartPage from './pages/CartPage';
+import Orders from './pages/Orders2';
 
 import { fetchInitialProducts, fetchOrdersFromJsonServer, placeOrderToJsonServer } from './api/products';
-
-import Orders from '../../FRONTEND/src/pages/Orders';
 import About from './pages/About';
 import './styles/App.module.css';
 
